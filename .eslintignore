@@ -1,0 +1,4 @@
+**/*.js
+!/.husky
+node_modules
+dist

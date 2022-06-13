@@ -1,7 +1,6 @@
+import htmlToReact from 'html-to-react';
 import * as React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
-import htmlToReact from 'html-to-react';
-
 import { App } from './App.tsx';
 import { constants } from './constants';
 
@@ -94,4 +93,4 @@ class ReactElement extends HTMLElement {
     }
 }
 
-customElements.define(constants.applicationName, ReactElement);
+customElements.get(constants.applicationName) || customElements.define(constants.applicationName, ReactElement);

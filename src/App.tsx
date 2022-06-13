@@ -1,14 +1,10 @@
-import React from 'react';
-import root from 'react-shadow/styled-components';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
 import { applyPolyfills, defineCustomElements } from 'blip-ds/loader';
-
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import root from 'react-shadow/styled-components';
 import { AppProvider } from './contexts/app-context';
-
-import { Home } from './pages/home';
-
 import GlobalStyle from './globalStyles';
+import { Home } from './pages/home';
 
 export const App = () => {
   applyPolyfills().then(() => {

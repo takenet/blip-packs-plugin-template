@@ -1,5 +1,5 @@
-import { BLIP_PACKS_GET_RESOURCE } from "src/constants/BlipPackEvents";
-import { EventService } from "./Events";
+import { BLIP_PACKS_GET_RESOURCE } from 'src/constants/BlipPackEvents';
+import { EventService } from './Events';
 
 export class SelfOnboardingService {
     public static getResource = async (resourceName: string) => {

@@ -1,3 +1,4 @@
+import { EventData } from 'src/types/EventData';
 import { v4 as uuidv4 } from 'uuid';
 
 type CallbackFunction = (data?: any) => void;
@@ -28,17 +29,5 @@ export class EventService {
                 reject();
             }
         });
-    }
-}
-
-export class EventData {
-    eventId: string;
-    eventName: string;
-    data: any;
-
-    constructor(eventId: string, eventName: string, data: any = null) {
-        this.eventId = eventId;
-        this.eventName = eventName;
-        this.data = data;
     }
 }

@@ -1,27 +1,27 @@
 import { Command } from 'lime-js';
 import {
-    BLIP_PACKS_GET_RESOURCE,
+    BLIP_PACKS_GET_RESOURCES,
     BLIP_PACKS_SEND_COMMAND,
-    BLIP_PACKS_SET_RESOURCE,
+    BLIP_PACKS_SET_RESOURCES,
 } from 'src/constants/BlipPackEvents';
-import { EventService } from './Events';
+import { PublishEvent } from './EventPublisher';
 
 export class SelfOnboardingService {
     public static getResource = async (resourceName: string) => {
-        return await EventService.publishEvent<{ resourceName: string }, string>(BLIP_PACKS_GET_RESOURCE, {
+        return await PublishEvent(BLIP_PACKS_GET_RESOURCES, {
             resourceName,
         });
     };
 
-    public static setResource = async (resourceName: string, value: string) => {
-        await EventService.publishEvent<{ resourceName: string; value: string }>(BLIP_PACKS_SET_RESOURCE, {
+    public static setResources = async (resourceName: string, value: string) => {
+        return await PublishEvent(BLIP_PACKS_SET_RESOURCES, {
             resourceName,
             value,
         });
     };
 
-    public static sendCommand = async (commandName: Command, payload: string) => {
-        await EventService.publishEvent<{ commandName: Command; payload: string }>(BLIP_PACKS_SEND_COMMAND, {
+    public static sendCommand = async (commandName: Command, payload: any) => {
+        return await PublishEvent(BLIP_PACKS_SEND_COMMAND, {
             commandName,
             payload,
         });

@@ -2,7 +2,7 @@ import htmlToReact from 'html-to-react';
 import * as React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { App } from './App.tsx';
-import { constants } from './constants';
+import { APPLICATION_NAME } from './constants/Application';
 
 // This class is required to create the web component
 class ReactElement extends HTMLElement {
@@ -58,10 +58,7 @@ class ReactElement extends HTMLElement {
         return [...attributes]
             .filter(attr => attr.name !== 'style')
             .map(attr => this.convert(propTypes, attr.name, attr.value))
-            .reduce(
-                (props, prop) => ({ ...props, [prop.name]: prop.value }),
-                {},
-            );
+            .reduce((props, prop) => ({ ...props, [prop.name]: prop.value }), {});
     }
 
     getEvents(propTypes) {
@@ -70,20 +67,16 @@ class ReactElement extends HTMLElement {
             .reduce(
                 (events, ev) => ({
                     ...events,
-                    [ev]: args =>
-                        this.dispatchEvent(new CustomEvent(ev, { ...args })),
+                    [ev]: args => this.dispatchEvent(new CustomEvent(ev, { ...args })),
                 }),
-                {},
+                {}
             );
     }
 
     convert(propTypes, attrName, attrValue) {
-        const propName = Object.keys(propTypes).find(
-            key => key.toLowerCase() == attrName,
-        );
+        const propName = Object.keys(propTypes).find(key => key.toLowerCase() == attrName);
         let value = attrValue;
-        if (attrValue === 'true' || attrValue === 'false')
-            value = attrValue == 'true';
+        if (attrValue === 'true' || attrValue === 'false') value = attrValue == 'true';
         else if (!isNaN(attrValue) && attrValue !== '') value = +attrValue;
         else if (/^{.*}/.exec(attrValue)) value = JSON.parse(attrValue);
         return {
@@ -93,4 +86,4 @@ class ReactElement extends HTMLElement {
     }
 }
 
-customElements.get(constants.applicationName) || customElements.define(constants.applicationName, ReactElement);
+customElements.get(APPLICATION_NAME) || customElements.define(APPLICATION_NAME, ReactElement);

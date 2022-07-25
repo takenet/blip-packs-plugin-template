@@ -1,9 +1,10 @@
 import { EventData } from 'src/types/EventData';
+import { EventResult } from 'src/types/EventResult';
 import { v4 as uuidv4 } from 'uuid';
 
 type CallbackFunction = (data?: any) => void;
 
-export const PublishEvent = (eventName: string, data: any, resultCallback?: CallbackFunction): Promise<any> => {
+export const PublishEvent = (eventName: string, data: any, resultCallback?: CallbackFunction): Promise<EventResult> => {
     return new Promise((resolve, reject) => {
         const eventId = uuidv4();
 
@@ -14,7 +15,7 @@ export const PublishEvent = (eventName: string, data: any, resultCallback?: Call
             if (!!resultCallback) {
                 resultCallback(eventData.data);
             }
-            resolve(eventData.data);
+            resolve(eventData.data as EventResult);
             window.removeEventListener(eventId, eventListener);
         };
 

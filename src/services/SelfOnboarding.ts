@@ -1,29 +1,23 @@
-import { Command } from 'lime-js';
-import {
-    BLIP_PACKS_GET_RESOURCES,
-    BLIP_PACKS_SEND_COMMAND,
-    BLIP_PACKS_SET_RESOURCES,
-} from 'src/constants/BlipPackEvents';
+import { SO_GET_RESOURCE, SO_SET_RESOURCES, SO_TRACKING_SEGMENT } from 'src/constants/BlipPackEvents';
+import { EventStatus } from 'src/types/EventResult';
+import { Resource } from 'src/types/Resource';
+import { TrackProps } from 'src/types/TrackProps';
 import { PublishEvent } from './EventPublisher';
 
-export class SelfOnboardingService {
-    public static getResource = async (resourceName: string) => {
-        return await PublishEvent(BLIP_PACKS_GET_RESOURCES, {
-            resourceName,
-        });
-    };
+export const GetResource = async (resourceName: string): Promise<Resource[]> => {
+    const result = await PublishEvent(SO_GET_RESOURCE, resourceName);
 
-    public static setResources = async (resourceName: string, value: string) => {
-        return await PublishEvent(BLIP_PACKS_SET_RESOURCES, {
-            resourceName,
-            value,
-        });
-    };
+    if (result.status == EventStatus.Success) {
+        return result.data as Resource[];
+    }
 
-    public static sendCommand = async (commandName: Command, payload: any) => {
-        return await PublishEvent(BLIP_PACKS_SEND_COMMAND, {
-            commandName,
-            payload,
-        });
-    };
-}
+    return [];
+};
+
+export const SetResources = async (resources: Resource[]) => {
+    await PublishEvent(SO_SET_RESOURCES, resources);
+};
+
+export const SendTrackingEvent = async (event: string, payload?: TrackProps) => {
+    await PublishEvent(SO_TRACKING_SEGMENT, { event, payload });
+};

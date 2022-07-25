@@ -1,3 +1,3 @@
-export const BLIP_PACKS_GET_RESOURCES = 'blippacks-get-resources';
-export const BLIP_PACKS_SET_RESOURCES = 'blippacks-set-resources';
-export const BLIP_PACKS_SEND_COMMAND = 'blippacks-send-command';
+export const SO_GET_RESOURCE = 'SO_GET_RESOURCE';
+export const SO_SET_RESOURCES = 'SO_SET_RESOURCES';
+export const SO_TRACKING_SEGMENT = 'SO_TRACKING_SEGMENT';

@@ -1,8 +1,22 @@
-import React from 'react';
-import { GetResource, SendTrackingEvent, SetResources } from 'src/services/SelfOnboarding';
+import React, { useEffect, useState } from 'react';
+import { useAppContext } from 'src/contexts/app-context';
+import {
+    GetResource,
+    MoveToNextStep,
+    MoveToPreviousStep,
+    SendTrackingEvent,
+    SetResources,
+} from 'src/services/SelfOnboarding';
 import { HomeContainer } from './styles';
 
 export const Home: React.FC = () => {
+    const { isSelfOnboarding } = useAppContext();
+    const [tipoTela, setTipoTela] = useState<string>('');
+
+    useEffect(() => {
+        setTipoTela(isSelfOnboarding ? 'SelfOnboarding' : 'Central de Packs');
+    }, [isSelfOnboarding, setTipoTela]);
+
     const handleGetResource = async () => {
         const resource = await GetResource('recurso_teste');
         console.log('Recurso recuperado: ', resource);
@@ -29,6 +43,13 @@ export const Home: React.FC = () => {
         });
     };
 
+    const handleMoveNext = async () => {
+        await MoveToNextStep();
+    };
+    const handleMovePrevious = async () => {
+        await MoveToPreviousStep();
+    };
+
     return (
         <HomeContainer>
             <bds-paper elevation="secondary">
@@ -47,12 +68,20 @@ export const Home: React.FC = () => {
                 <bds-tab-panel group="tab3"><bds-typo class="hydrated">Veryadvanced settings para testes de tamanho</bds-typo></bds-tab-panel>
                 <bds-tab-panel group="tab4"><bds-typo class="hydrated">Personal settings</bds-typo></bds-tab-panel>
                 <bds-tab-panel group="tab5"><bds-typo class="hydrated">Common settings</bds-typo></bds-tab-panel> */}
+                <span>
+                    <strong>Tela: {tipoTela}</strong>
+                </span>
+                <br />
                 <h3>Exemplo de eventos:</h3>
                 <button onClick={handleGetResource}>Get Resource</button>
                 &nbsp;&nbsp;
                 <button onClick={handleSetResources}>Set Resource</button>
                 &nbsp;&nbsp;
                 <button onClick={handleSendTracking}>Send Tracking</button>
+                &nbsp;&nbsp;
+                <button onClick={handleMoveNext}>Move next</button>
+                &nbsp;&nbsp;
+                <button onClick={handleMovePrevious}>Move Previous</button>
             </bds-paper>
         </HomeContainer>
     );

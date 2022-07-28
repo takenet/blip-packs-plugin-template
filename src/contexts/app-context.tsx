@@ -1,37 +1,47 @@
-import React, { createContext, useReducer, Dispatch } from 'react';
-import { appReducer } from '../reducers/app-reducer';
+import React, { createContext, useEffect, useState } from 'react';
+import { AppContextData } from 'src/types/AppContextData';
+import { AppProps } from 'src/types/AppProps';
 
-type AppInitialStateType = {
-    value?: any;
-};
+export const AppContext = createContext<AppContextData>({} as AppContextData);
 
-const initialState = {
-    value: 0,
-};
+export const AppProvider: React.FC<AppProps> = ({ children, userdata }) => {
+    const [isSelfOnboarding, setIsSelfOnboarding] = useState(false);
+    const [initialized, setInitialized] = useState(false);
 
-const AppContext = createContext<{
-    state: AppInitialStateType;
-    dispatch: Dispatch<{ type: string; payload: any }>;
-}>({
-    state: initialState,
-    dispatch: () => null,
-});
+    useEffect(() => {
+        let isMounted = false;
 
-const mainReducer = <T extends { type: string; payload: T }>(
-    data: AppInitialStateType,
-    action: T,
-) => ({
-    value: appReducer(data, action),
-});
+        if (userdata) {
+            setIsSelfOnboarding(userdata.isSelfOnboarding);
+            setInitialized(true);
+        }
 
-const AppProvider: React.FC = ({ children }) => {
-    const [state, dispatch] = useReducer(mainReducer, initialState);
+        return () => {
+            isMounted = true;
+        };
+    }, [userdata]);
 
-    return (
-        <AppContext.Provider value={{ state, dispatch }}>
-            {children}
-        </AppContext.Provider>
+    return initialized ? (
+        <>
+            <AppContext.Provider
+                value={{
+                    isSelfOnboarding,
+                }}
+            >
+                {children}
+            </AppContext.Provider>
+        </>
+    ) : (
+        <></>
     );
 };
 
-export { AppProvider, AppContext };
+export function useAppContext(): AppContextData {
+    const context = React.useContext(AppContext);
+
+    if (!context) {
+        throw new Error('use app context must be used within an AppProvider');
+    }
+
+    return context;
+}

@@ -4,7 +4,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 type CallbackFunction = (data?: any) => void;
 
-export const PublishEvent = (eventName: string, data: any, resultCallback?: CallbackFunction): Promise<EventResult> => {
+export const PublishEvent = (
+    eventName: string,
+    data: any = {},
+    resultCallback?: CallbackFunction
+): Promise<EventResult> => {
     return new Promise((resolve, reject) => {
         const eventId = uuidv4();
 

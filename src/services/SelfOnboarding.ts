@@ -1,8 +1,8 @@
 import {
     SO_GET_RESOURCE,
-    SO_MOVE_TO_NEXT_STEP,
-    SO_MOVE_TO_PREVIOUS_STEP,
+    SO_NEXT_STEP,
     SO_SET_RESOURCES,
+    SO_STEP_BACK,
     SO_TRACKING_SEGMENT,
 } from 'src/constants/BlipPackEvents';
 import { EventStatus } from 'src/types/EventResult';
@@ -28,10 +28,10 @@ export const SendTrackingEvent = async (event: string, payload?: TrackProps) => 
     await PublishEvent(SO_TRACKING_SEGMENT, { event, payload });
 };
 
-export const MoveToNextStep = async () => {
-    await PublishEvent(SO_MOVE_TO_NEXT_STEP);
+export const NextStep = async () => {
+    await PublishEvent(SO_NEXT_STEP);
 };
 
-export const MoveToPreviousStep = async () => {
-    await PublishEvent(SO_MOVE_TO_PREVIOUS_STEP);
+export const StepBack = async () => {
+    await PublishEvent(SO_STEP_BACK);
 };

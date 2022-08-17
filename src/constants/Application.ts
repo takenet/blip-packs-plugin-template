@@ -1,1 +1,1 @@
-export const APPLICATION_NAME = 'microfront-sample';
+export const APPLICATION_NAME = 'container-plugins';

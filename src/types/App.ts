@@ -1,8 +1,8 @@
-import { UserProfile } from './UserProfile';
+import { Profile } from './OIDCProfile';
 
 export type AppProps = {
     pluginProps: {
-        userData: UserProfile;
+        userData: Profile;
         isSelfOnboarding: boolean;
     };
 };

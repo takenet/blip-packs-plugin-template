@@ -26,7 +26,7 @@ export const AppProvider: React.FC<AppProps> = ({ children, pluginProps }) => {
         };
     }, [pluginProps]);
 
-    return userData ? (
+    return Object.keys(userData).length ? (
         <>
             <AppContext.Provider
                 value={{

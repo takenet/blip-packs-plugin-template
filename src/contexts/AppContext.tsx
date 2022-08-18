@@ -1,31 +1,37 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { AppContextData } from 'src/types/AppContextData';
-import { AppProps } from 'src/types/AppProps';
+import { AppProps } from 'src/types/App';
+import { Profile } from 'src/types/OIDCProfile';
+
+type AppContextData = {
+    userData: Profile;
+    isSelfOnboarding: boolean;
+};
 
 export const AppContext = createContext<AppContextData>({} as AppContextData);
 
-export const AppProvider: React.FC<AppProps> = ({ children, userdata }) => {
+export const AppProvider: React.FC<AppProps> = ({ children, pluginProps }) => {
     const [isSelfOnboarding, setIsSelfOnboarding] = useState(false);
-    const [initialized, setInitialized] = useState(false);
+    const [userData, setUserData] = useState({} as Profile);
 
     useEffect(() => {
         let isMounted = false;
 
-        if (userdata) {
-            setIsSelfOnboarding(userdata.isSelfOnboarding);
-            setInitialized(true);
+        if (pluginProps.userData && !isMounted) {
+            setIsSelfOnboarding(pluginProps.isSelfOnboarding);
+            setUserData(pluginProps.userData);
         }
 
         return () => {
             isMounted = true;
         };
-    }, [userdata]);
+    }, [pluginProps]);
 
-    return initialized ? (
+    return Object.keys(userData).length ? (
         <>
             <AppContext.Provider
                 value={{
                     isSelfOnboarding,
+                    userData,
                 }}
             >
                 {children}

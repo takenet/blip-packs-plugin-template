@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useAppContext } from 'src/contexts/app-context';
-import {
-    GetResource,
-    MoveToNextStep,
-    MoveToPreviousStep,
-    SendTrackingEvent,
-    SetResources,
-} from 'src/services/SelfOnboarding';
+import { useAppContext } from 'src/contexts/AppContext';
+import { GetResource, NextStep, SendTrackingEvent, SetResources, StepBack } from 'src/services/SelfOnboarding';
 import { HomeContainer } from './styles';
 
 export const Home: React.FC = () => {
@@ -44,10 +38,10 @@ export const Home: React.FC = () => {
     };
 
     const handleMoveNext = async () => {
-        await MoveToNextStep();
+        await NextStep();
     };
     const handleMovePrevious = async () => {
-        await MoveToPreviousStep();
+        await StepBack();
     };
 
     return (
@@ -73,15 +67,17 @@ export const Home: React.FC = () => {
                 </span>
                 <br />
                 <h3>Exemplo de eventos:</h3>
-                <button onClick={handleGetResource}>Get Resource</button>
-                &nbsp;&nbsp;
-                <button onClick={handleSetResources}>Set Resource</button>
-                &nbsp;&nbsp;
-                <button onClick={handleSendTracking}>Send Tracking</button>
-                &nbsp;&nbsp;
-                <button onClick={handleMoveNext}>Move next</button>
-                &nbsp;&nbsp;
-                <button onClick={handleMovePrevious}>Move Previous</button>
+                <div id="buttons">
+                    <bds-button onClick={handleGetResource}>Get Resource</bds-button>
+                    &nbsp;&nbsp;
+                    <bds-button onClick={handleSetResources}>Set Resource</bds-button>
+                    &nbsp;&nbsp;
+                    <bds-button onClick={handleSendTracking}>Send Tracking</bds-button>
+                    &nbsp;&nbsp;
+                    <bds-button onClick={handleMoveNext}>Next Step</bds-button>
+                    &nbsp;&nbsp;
+                    <bds-button onClick={handleMovePrevious}>Step Back</bds-button>
+                </div>
             </bds-paper>
         </HomeContainer>
     );

@@ -1,6 +1,5 @@
 import { applyPolyfills, defineCustomElements } from 'blip-ds/loader';
 import React from 'react';
-import { ROUTER_KEY } from './constants/Application';
 import { AppProvider } from './contexts/AppContext';
 import GlobalStyle from './globalStyles';
 import { Home } from './pages/home';
@@ -11,7 +10,19 @@ export const App: React.FC<AppProps> = ({ pluginProps }) => {
         defineCustomElements(window);
     });
 
-    const tempPluginProps = { ...pluginProps, routerKey: ROUTER_KEY };
+    // Insert temp router data bellow
+
+    const routerData = {
+        shortName: '',
+        accessKey: '',
+
+        skillTransbordo: {
+            shortName: '',
+            accessKey: '',
+        },
+    };
+
+    const tempPluginProps = { ...pluginProps, routerData: routerData };
 
     return (
         <>

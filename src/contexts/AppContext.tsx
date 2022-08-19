@@ -5,7 +5,7 @@ import { Profile } from 'src/types/OIDCProfile';
 type AppContextData = {
     userData: Profile;
     isSelfOnboarding: boolean;
-    routerKey: string;
+    routerData: any;
 };
 
 export const AppContext = createContext<AppContextData>({} as AppContextData);
@@ -13,7 +13,7 @@ export const AppContext = createContext<AppContextData>({} as AppContextData);
 export const AppProvider: React.FC<AppProps> = ({ children, pluginProps }) => {
     const [isSelfOnboarding, setIsSelfOnboarding] = useState(false);
     const [userData, setUserData] = useState({} as Profile);
-    const [routerKey, setRouterKey] = useState('');
+    const [routerData, setRouterData] = useState();
 
     useEffect(() => {
         let isMounted = false;
@@ -21,7 +21,7 @@ export const AppProvider: React.FC<AppProps> = ({ children, pluginProps }) => {
         if (!isMounted) {
             setIsSelfOnboarding(pluginProps.isSelfOnboarding);
             setUserData(pluginProps.userData);
-            setRouterKey(pluginProps.routerKey);
+            setRouterData(pluginProps.routerData);
         }
 
         return () => {
@@ -35,7 +35,7 @@ export const AppProvider: React.FC<AppProps> = ({ children, pluginProps }) => {
                 value={{
                     isSelfOnboarding,
                     userData,
-                    routerKey,
+                    routerData,
                 }}
             >
                 {children}

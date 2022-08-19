@@ -4,5 +4,6 @@ export type AppProps = {
     pluginProps: {
         userData: Profile;
         isSelfOnboarding: boolean;
+        routerKey: string;
     };
 };

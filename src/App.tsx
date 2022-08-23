@@ -10,24 +10,10 @@ export const App: React.FC<AppProps> = ({ pluginProps }) => {
         defineCustomElements(window);
     });
 
-    // Insert temp router data bellow
-
-    const routerData = {
-        shortName: '',
-        accessKey: '',
-
-        skillTransbordo: {
-            shortName: '',
-            accessKey: '',
-        },
-    };
-
-    const tempPluginProps = { ...pluginProps, routerData: routerData };
-
     return (
         <>
             <GlobalStyle />
-            <AppProvider pluginProps={tempPluginProps}>
+            <AppProvider pluginProps={pluginProps}>
                 <Home />
             </AppProvider>
         </>

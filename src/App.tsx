@@ -3,9 +3,9 @@ import React from 'react';
 import { AppProvider } from './contexts/AppContext';
 import GlobalStyle from './globalStyles';
 import { Home } from './pages/home';
-import { AppProps } from './types/App';
+import { PluginProps } from './types/PluginProps';
 
-export const App: React.FC<AppProps> = ({ pluginProps }) => {
+export const App: React.FC<PluginProps> = ({ pluginProps }) => {
     applyPolyfills().then(() => {
         defineCustomElements(window);
     });

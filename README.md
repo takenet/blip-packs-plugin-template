@@ -22,12 +22,19 @@ This communication uses the [EventAPI](https://developer.mozilla.org/pt-BR/docs/
 
 ![Plugin x Self-onboarding communication](./src/assets/readme/Pubsub.png)
 
-This communication is already implemented on this template. Under `services/SelfOnboarding.ts`, you'll find three core methods to persist the user data:
+This communication is already implemented on this template. Under `services/SelfOnboarding.ts`, you'll find two core methods to persist the user data:
 
 ```
-getResource(resourceName: string)
-setResources(resourceName: string, value: string)
-sendCommand(commandName: Command, payload: any)
+GetResource(resourceName: string)
+SetResources(resourceName: string, value: string)
+```
+
+In order to manage routes and trackings, three methods are available under `services/SelfOnboarding.ts`:
+
+```
+SendTrackingEvent(event: string, payload?: TrackProps)
+NextStep()
+StepBack()
 ```
 
 Development is still being made, and any inconsistences should be reported to Merchant Experience (MEX) team.

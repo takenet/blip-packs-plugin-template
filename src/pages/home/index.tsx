@@ -17,7 +17,7 @@ export const Home: React.FC = () => {
     };
 
     const handleSetResources = async () => {
-        await SetResources([
+        const status = await SetResources([
             {
                 name: 'recurso1',
                 value: 'RECURSO 1',
@@ -29,6 +29,8 @@ export const Home: React.FC = () => {
                 type: 'application/json',
             },
         ]);
+
+        console.log('Recurso setado', status);
     };
 
     const handleSendTracking = async () => {

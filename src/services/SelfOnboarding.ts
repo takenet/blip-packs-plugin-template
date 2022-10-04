@@ -1,5 +1,5 @@
 import {
-    SO_GET_RESOURCE,
+    SO_GET_RESOURCES,
     SO_NEXT_STEP,
     SO_SET_RESOURCES,
     SO_STEP_BACK,
@@ -10,8 +10,8 @@ import { Resource } from 'src/types/Resource';
 import { TrackProps } from 'src/types/TrackProps';
 import { PublishEvent } from './EventPublisher';
 
-export const GetResource = async (resourceName: string): Promise<Resource[]> => {
-    const result = await PublishEvent(SO_GET_RESOURCE, resourceName);
+export const GetResources = async (botShortName: string): Promise<Resource[]> => {
+    const result = await PublishEvent(SO_GET_RESOURCES, botShortName);
 
     if (result.status == EventStatus.Success) {
         return result.data as Resource[];
@@ -20,8 +20,8 @@ export const GetResource = async (resourceName: string): Promise<Resource[]> => 
     return [];
 };
 
-export const SetResources = async (resources: Resource[]) => {
-    await PublishEvent(SO_SET_RESOURCES, resources);
+export const SetResources = async (botShortName: string, resources: Resource[]) => {
+    return await PublishEvent(SO_SET_RESOURCES, { botShortName, resources });
 };
 
 export const SendTrackingEvent = async (event: string, payload?: TrackProps) => {

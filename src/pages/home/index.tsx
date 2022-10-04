@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAppContext } from 'src/contexts/AppContext';
-import { GetResource, NextStep, SendTrackingEvent, SetResources, StepBack } from 'src/services/SelfOnboarding';
+import { GetResources, NextStep, SendTrackingEvent, SetResources, StepBack } from 'src/services/SelfOnboarding';
 import { HomeContainer } from './styles';
 
 export const Home: React.FC = () => {
@@ -12,12 +12,12 @@ export const Home: React.FC = () => {
     }, [isSelfOnboarding, setTipoTela]);
 
     const handleGetResource = async () => {
-        const resource = await GetResource('recurso_teste');
+        const resource = await GetResources('botDeTestes123');
         console.log('Recurso recuperado: ', resource);
     };
 
     const handleSetResources = async () => {
-        await SetResources([
+        const status = await SetResources('botDeTestes123', [
             {
                 name: 'recurso1',
                 value: 'RECURSO 1',
@@ -29,6 +29,8 @@ export const Home: React.FC = () => {
                 type: 'application/json',
             },
         ]);
+
+        console.log('Recurso setado', status);
     };
 
     const handleSendTracking = async () => {

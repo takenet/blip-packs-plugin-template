@@ -17,8 +17,43 @@
         </style>
     </head>
     <body>
-        <container-plugins></container-plugins>
+        <div id="container-plugin"></div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.2.10/custom-elements-es5-adapter.js"></script>
         <script src="../dist/main.js"></script>
+        <script>
+            function injectMicrofrontEnd(tagMfe) {
+                const container = window.document.getElementById('container-plugin');
+                const idMfe = `${container?.id}-fragment`;
+
+                if (container?.ownerDocument.getElementById(idMfe)) {
+                    const node = container?.ownerDocument.getElementById(idMfe);
+                    container.removeChild(node);
+                }
+
+                const pluginProps = {
+                    userData: {
+                        name: 'Usuario Teste',
+                        email: 'teste@teste.net',
+                    },
+                    isSelfOnboarding: true,
+                    activationOption: 'active',
+                    routerData: {
+                        shortName: 'bot1',
+                        accessKey: 'botAcK',
+                        skillTransbordo: {
+                            shortName: 'Transbordo',
+                            accessKey: 'transbordoKey',
+                        },
+                    },
+                };
+
+                const mfe = document.createElement(tagMfe);
+                mfe.id = idMfe;
+                mfe.setAttributeNS(null, 'pluginProps', JSON.stringify(pluginProps));
+                container?.appendChild(mfe);
+            }
+
+            injectMicrofrontEnd('container-plugins');
+        </script>
     </body>
 </html>

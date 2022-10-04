@@ -12,7 +12,7 @@ export type PluginProps = {
 export type RouterData = {
     shortName: string;
     accessKey: string;
-    skillTransbordo: {
+    transhipmentSkill: {
         shortName: string;
         accessKey: string;
     };
